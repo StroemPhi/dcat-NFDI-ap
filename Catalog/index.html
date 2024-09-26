@@ -5,10 +5,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<link href="https://StroemPhi.github.io/dcat-NFDI-ap/Dataset/" rel="canonical"/>
+<link href="https://StroemPhi.github.io/dcat-NFDI-ap/Catalog/" rel="canonical"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-8.5.10" name="generator"/>
-<title>Class: Dataset - dcat-NFDI-ap</title>
+<title>Class: Catalog - dcat-NFDI-ap</title>
 <link href="../assets/stylesheets/main.975780f9.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -21,7 +21,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#class-dataset">
+<a class="md-skip" href="#class-catalog">
           Skip to content
         </a>
 </div>
@@ -45,7 +45,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Class: Dataset
+              Class: Catalog
             
           </span>
 </div>
@@ -152,16 +152,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#usages">
-    Usages
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#comments">
-    Comments
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#identifier-and-mapping-information">
     Identifier and Mapping Information
   </a>
@@ -206,35 +196,39 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/StroemPhi/dcat-NFDI-ap/edit/master/docs/Dataset.md" title="Edit this page">
+<a class="md-content__button md-icon" href="https://github.com/StroemPhi/dcat-NFDI-ap/edit/master/docs/Catalog.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
-<h1 id="class-dataset">Class: Dataset</h1>
-<p><em>A collection of data, published or curated by a single agent, and available for access or download in one or more representations.</em></p>
-<p>URI: <a href="https://www.w3.org/ns/dcat#Dataset">dcat:Dataset</a></p>
+<h1 id="class-catalog">Class: Catalog</h1>
+<p><em>A curated collection of metadata about data resources.</em></p>
+<p>URI: <a href="https://www.w3.org/ns/dcat#Catalog">dcat:Catalog</a></p>
 <div class="mermaid"> classDiagram
-    class Dataset
-    click Dataset href "../Dataset"
-      NamedThing &lt;|-- Dataset
-        click NamedThing href "../NamedThing"
-
-
+    class Catalog
+    click Catalog href "../Catalog"
       Dataset &lt;|-- Catalog
-        click Catalog href "../Catalog"
+        click Dataset href "../Dataset"
 
+      Catalog : description
 
-      Dataset : description
-
-      Dataset : id
-
-      Dataset : name
-
-      Dataset : was_generated_by
+      Catalog : has_dataset
 
 
 
 
-    Dataset --&gt; "0..1" Activity : was_generated_by
+    Catalog --&gt; "* _recommended_" Dataset : has_dataset
+    click Dataset href "../Dataset"
+
+
+      Catalog : id
+
+      Catalog : name
+
+      Catalog : was_generated_by
+
+
+
+
+    Catalog --&gt; "0..1" Activity : was_generated_by
     click Activity href "../Activity"
 
 
@@ -243,8 +237,8 @@
 <h2 id="inheritance">Inheritance</h2>
 <ul>
 <li><a href="../NamedThing/">NamedThing</a><ul>
-<li><strong>Dataset</strong><ul>
-<li><a href="../Catalog/">Catalog</a></li>
+<li><a href="../Dataset/">Dataset</a><ul>
+<li><strong>Catalog</strong></li>
 </ul>
 </li>
 </ul>
@@ -262,54 +256,37 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="../has_dataset/">has_dataset</a></td>
+<td>* <em>recommended</em> <br/> <a href="../Dataset/">Dataset</a></td>
+<td>The property to list the datasets of a catalog</td>
+<td>direct</td>
+</tr>
+<tr>
 <td><a href="../was_generated_by/">was_generated_by</a></td>
 <td>0..1 <br/> <a href="../Activity/">Activity</a></td>
 <td>The property to specify the Activity (process) that created a Dataset</td>
-<td>direct</td>
+<td><a href="../Dataset/">Dataset</a></td>
 </tr>
 <tr>
 <td><a href="../id/">id</a></td>
 <td>1 <br/> <a href="../String/">String</a></td>
-<td>The unique identifier of a Dataset</td>
+<td>The unique identifier of a Catalog</td>
 <td><a href="../NamedThing/">NamedThing</a></td>
 </tr>
 <tr>
 <td><a href="../name/">name</a></td>
 <td>1..* <br/> <a href="../String/">String</a></td>
-<td>The name of a dcat:Dataset</td>
+<td>The name of a dcat:Catalog</td>
 <td><a href="../NamedThing/">NamedThing</a></td>
 </tr>
 <tr>
 <td><a href="../description/">description</a></td>
 <td>1..* <br/> <a href="../String/">String</a></td>
-<td>A free-text account of a dcat:Dataset</td>
+<td>A free-text account of a dcat:Catalog</td>
 <td><a href="../NamedThing/">NamedThing</a></td>
 </tr>
 </tbody>
 </table>
-<h2 id="usages">Usages</h2>
-<table>
-<thead>
-<tr>
-<th>used by</th>
-<th>used in</th>
-<th>type</th>
-<th>used</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../Catalog/">Catalog</a></td>
-<td><a href="../has_dataset/">has_dataset</a></td>
-<td>range</td>
-<td><a href="./">Dataset</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="comments">Comments</h2>
-<ul>
-<li>PS: wasn't discussed in the Halle Metadatathon</li>
-</ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
@@ -326,11 +303,11 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>dcat:Dataset</td>
+<td>dcat:Catalog</td>
 </tr>
 <tr>
 <td>native</td>
-<td>dcat_nfdi_ap:Dataset</td>
+<td>dcat_nfdi_ap:Catalog</td>
 </tr>
 </tbody>
 </table>
@@ -338,92 +315,102 @@
 <!-- TODO: investigate https://stackoverflow.com/questions/37606292/how-to-create-tabbed-code-blocks-in-mkdocs-or-sphinx -->
 <h3 id="direct">Direct</h3>
 <details>
-<pre><code class="language-yaml">name: Dataset
-description: A collection of data, published or curated by a single agent, and available
-  for access or download in one or more representations.
-comments:
-- 'PS: wasn''t discussed in the Halle Metadatathon'
+<pre><code class="language-yaml">name: Catalog
+description: A curated collection of metadata about data resources.
 from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
-is_a: NamedThing
+is_a: Dataset
 slot_usage:
   id:
     name: id
-    description: The unique identifier of a Dataset.
+    description: The unique identifier of a Catalog.
   name:
     name: name
-    description: The name of a dcat:Dataset.
-    required: true
+    description: The name of a dcat:Catalog.
   description:
     name: description
-    description: A free-text account of a dcat:Dataset.
-    required: true
+    description: A free-text account of a dcat:Catalog.
 attributes:
-  was_generated_by:
-    name: was_generated_by
-    description: The property to specify the Activity (process) that created a Dataset.
+  has_dataset:
+    name: has_dataset
+    description: The property to list the datasets of a catalog.
     from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
     rank: 1000
+    slot_uri: dcat:dataset
     domain_of:
-    - Dataset
-    range: Activity
+    - Catalog
+    range: Dataset
+    recommended: true
+    multivalued: true
     inlined: true
-class_uri: dcat:Dataset
+    inlined_as_list: true
+class_uri: dcat:Catalog
+tree_root: true
 
 </code></pre>
 </details>
 <h3 id="induced">Induced</h3>
 <details>
-<pre><code class="language-yaml">name: Dataset
-description: A collection of data, published or curated by a single agent, and available
-  for access or download in one or more representations.
-comments:
-- 'PS: wasn''t discussed in the Halle Metadatathon'
+<pre><code class="language-yaml">name: Catalog
+description: A curated collection of metadata about data resources.
 from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
-is_a: NamedThing
+is_a: Dataset
 slot_usage:
   id:
     name: id
-    description: The unique identifier of a Dataset.
+    description: The unique identifier of a Catalog.
   name:
     name: name
-    description: The name of a dcat:Dataset.
-    required: true
+    description: The name of a dcat:Catalog.
   description:
     name: description
-    description: A free-text account of a dcat:Dataset.
-    required: true
+    description: A free-text account of a dcat:Catalog.
 attributes:
+  has_dataset:
+    name: has_dataset
+    description: The property to list the datasets of a catalog.
+    from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
+    rank: 1000
+    slot_uri: dcat:dataset
+    alias: has_dataset
+    owner: Catalog
+    domain_of:
+    - Catalog
+    range: Dataset
+    recommended: true
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   was_generated_by:
     name: was_generated_by
     description: The property to specify the Activity (process) that created a Dataset.
     from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
     rank: 1000
     alias: was_generated_by
-    owner: Dataset
+    owner: Catalog
     domain_of:
     - Dataset
     range: Activity
     inlined: true
   id:
     name: id
-    description: The unique identifier of a Dataset.
+    description: The unique identifier of a Catalog.
     from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
     rank: 1000
     identifier: true
     alias: id
-    owner: Dataset
+    owner: Catalog
     domain_of:
     - NamedThing
     range: string
     required: true
   name:
     name: name
-    description: The name of a dcat:Dataset.
+    description: The name of a dcat:Catalog.
     from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
     rank: 1000
     slot_uri: dct:title
     alias: name
-    owner: Dataset
+    owner: Catalog
     domain_of:
     - NamedThing
     range: string
@@ -431,18 +418,19 @@ attributes:
     multivalued: true
   description:
     name: description
-    description: A free-text account of a dcat:Dataset.
+    description: A free-text account of a dcat:Catalog.
     from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
     rank: 1000
     slot_uri: dct:description
     alias: description
-    owner: Dataset
+    owner: Catalog
     domain_of:
     - NamedThing
     range: string
     required: true
     multivalued: true
-class_uri: dcat:Dataset
+class_uri: dcat:Catalog
+tree_root: true
 
 </code></pre>
 </details>

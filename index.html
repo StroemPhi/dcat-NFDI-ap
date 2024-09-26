@@ -393,8 +393,8 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="DatasetCollection/">DatasetCollection</a></td>
-<td>A holder for Dataset objects</td>
+<td><a href="Activity/">Activity</a></td>
+<td>An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.</td>
 </tr>
 <tr>
 <td><a href="NamedThing/">NamedThing</a></td>
@@ -402,7 +402,19 @@
 </tr>
 <tr>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Dataset/">Dataset</a></td>
-<td>Represents a Dataset</td>
+<td>A collection of data, published or curated by a single agent, and available for access or download in one or more representations.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Catalog/">Catalog</a></td>
+<td>A curated collection of metadata about data resources.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ObjectOfInterest/">ObjectOfInterest</a></td>
+<td>Something that is being observed, studied, modified, influenced or consumed within an activity.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Tool/">Tool</a></td>
+<td>Something with a certain function used within an activity to achieve the overall goal of the activity.</td>
 </tr>
 </tbody>
 </table>
@@ -416,36 +428,40 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="age_in_years/">age_in_years</a></td>
-<td>Number of years since birth</td>
-</tr>
-<tr>
-<td><a href="birth_date/">birth_date</a></td>
-<td>Date on which a person is born</td>
-</tr>
-<tr>
 <td><a href="description/">description</a></td>
-<td>A human-readable description for a thing</td>
+<td>A free-text account of a thing</td>
 </tr>
 <tr>
-<td><a href="entries/">entries</a></td>
-<td></td>
+<td><a href="had_object/">had_object</a></td>
+<td>A property to provide the objects that are studied, processed or produced by ...</td>
+</tr>
+<tr>
+<td><a href="has_dataset/">has_dataset</a></td>
+<td>The property to list the datasets of a catalog</td>
+</tr>
+<tr>
+<td><a href="has_part/">has_part</a></td>
+<td>A property used to specify parts of an entity in this schema</td>
 </tr>
 <tr>
 <td><a href="id/">id</a></td>
-<td>A unique identifier for a thing</td>
+<td>The unique identifier of a thing</td>
 </tr>
 <tr>
 <td><a href="name/">name</a></td>
-<td>A human-readable name for a thing</td>
+<td>The name of a thing</td>
 </tr>
 <tr>
-<td><a href="primary_email/">primary_email</a></td>
-<td>The main email address of a person</td>
+<td><a href="type/">type</a></td>
+<td>A property used to further specify the type of an entity in this schema</td>
 </tr>
 <tr>
-<td><a href="vital_status/">vital_status</a></td>
-<td>living or dead status</td>
+<td><a href="used_tool/">used_tool</a></td>
+<td>A property to provide the tools that were used in an activity</td>
+</tr>
+<tr>
+<td><a href="was_generated_by/">was_generated_by</a></td>
+<td>The property to specify the Activity (process) that created a Dataset</td>
 </tr>
 </tbody>
 </table>
@@ -459,8 +475,16 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="PersonStatus/">PersonStatus</a></td>
-<td></td>
+<td><a href="ActivityType/">ActivityType</a></td>
+<td>An enum to provided allowed values for the type of an Activity</td>
+</tr>
+<tr>
+<td><a href="ObjectType/">ObjectType</a></td>
+<td>An enum to provide the allowed values for the type of an Object</td>
+</tr>
+<tr>
+<td><a href="ToolType/">ToolType</a></td>
+<td>An enum to provide the allowed values for the type of a Tool</td>
 </tr>
 </tbody>
 </table>

@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://StroemPhi.github.io/dcat-NFDI-ap/primary_email/">
+        <link rel="canonical" href="https://StroemPhi.github.io/dcat-NFDI-ap/ActivityType/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: primary_email - dcat-NFDI-ap</title>
+        <title>Enum: ActivityType - dcat-NFDI-ap</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-primary_email" class="md-skip">
+        <a href="#enum-activitytype" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: primary_email
+              Enum: ActivityType
             
           </span>
         </div>
@@ -256,15 +256,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#applicable-classes" class="md-nav__link">
-    Applicable Classes
+  <a href="#permissible-values" class="md-nav__link">
+    Permissible Values
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
+  <a href="#slots" class="md-nav__link">
+    Slots
   </a>
   
 </li>
@@ -290,13 +290,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mappings" class="md-nav__link">
-    Mappings
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#linkml-source" class="md-nav__link">
     LinkML Source
   </a>
@@ -317,74 +310,78 @@
                 
                   
 
-  <a href="https://github.com/StroemPhi/dcat-NFDI-ap/edit/master/docs/primary_email.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/StroemPhi/dcat-NFDI-ap/edit/master/docs/ActivityType.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-primary_email">Slot: primary_email</h1>
-<p><em>The main email address of a person</em></p>
-<p>URI: <a href="http://schema.org/email">schema:email</a></p>
-<!-- no inheritance hierarchy -->
-
-<h2 id="applicable-classes">Applicable Classes</h2>
+<h1 id="enum-activitytype">Enum: ActivityType</h1>
+<p><em>An enum to provided allowed values for the type of an Activity.</em></p>
+<p>URI: <a href="./">ActivityType</a></p>
+<h2 id="permissible-values">Permissible Values</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data_curation</td>
+<td>T4FS:0000132</td>
+<td>A managed process, throughout the data lifecycle, by which data &amp; data collec...</td>
+</tr>
+<tr>
+<td>spectroscopy</td>
+<td>CHMO:0000228</td>
+<td>The study of the interaction of a sample with radiation or particles for meas...</td>
+</tr>
+</tbody>
+</table>
+<h2 id="slots">Slots</h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Description</th>
-<th>Modifies Slot</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="../Dataset/">Dataset</a></td>
-<td>Represents a Dataset</td>
-<td>yes</td>
+<td><a href="../type/">type</a></td>
+<td>The type of activity according to the permissible values defined in the Activ...</td>
 </tr>
 </tbody>
 </table>
-<h2 id="properties">Properties</h2>
-<ul>
-<li>Range: <a href="../String/">String</a></li>
-</ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
 <li>from schema: https://w3id.org/StroemPhi/dcat-NFDI-ap</li>
 </ul>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>schema:email</td>
-</tr>
-<tr>
-<td>native</td>
-<td>dcat_nfdi_ap:primary_email</td>
-</tr>
-</tbody>
-</table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: primary_email
-description: The main email address of a person
+<pre><code class="language-yaml">name: ActivityType
+description: An enum to provided allowed values for the type of an Activity.
 from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
 rank: 1000
-slot_uri: schema:email
-alias: primary_email
-domain_of:
-- Dataset
-range: string
+permissible_values:
+  data_curation:
+    text: data_curation
+    description: A managed process, throughout the data lifecycle, by which data &amp;
+      data collections are cleansed, documented, standardized, formatted and inter-related.
+      This includes versioning data, or forming a new collection from several data
+      sources, annotating with metadata, adding codes to raw data (e.g., classifying
+      a galaxy image with a galaxy type such as spiral).
+    meaning: T4FS:0000132
+  spectroscopy:
+    text: spectroscopy
+    description: The study of the interaction of a sample with radiation or particles
+      for measurement or detection.
+    meaning: CHMO:0000228
 
 </code></pre>
 

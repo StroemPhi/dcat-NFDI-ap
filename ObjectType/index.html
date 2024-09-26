@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://StroemPhi.github.io/dcat-NFDI-ap/entries/">
+        <link rel="canonical" href="https://StroemPhi.github.io/dcat-NFDI-ap/ObjectType/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: entries - dcat-NFDI-ap</title>
+        <title>Enum: ObjectType - dcat-NFDI-ap</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-entries" class="md-skip">
+        <a href="#enum-objecttype" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: entries
+              Enum: ObjectType
             
           </span>
         </div>
@@ -256,15 +256,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#applicable-classes" class="md-nav__link">
-    Applicable Classes
+  <a href="#permissible-values" class="md-nav__link">
+    Permissible Values
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
+  <a href="#slots" class="md-nav__link">
+    Slots
   </a>
   
 </li>
@@ -290,13 +290,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mappings" class="md-nav__link">
-    Mappings
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#linkml-source" class="md-nav__link">
     LinkML Source
   </a>
@@ -317,79 +310,69 @@
                 
                   
 
-  <a href="https://github.com/StroemPhi/dcat-NFDI-ap/edit/master/docs/entries.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/StroemPhi/dcat-NFDI-ap/edit/master/docs/ObjectType.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-entries">Slot: entries</h1>
-<p>URI: <a href="https://w3id.org/StroemPhi/dcat-NFDI-ap/entries">dcat_nfdi_ap:entries</a></p>
-<!-- no inheritance hierarchy -->
-
-<h2 id="applicable-classes">Applicable Classes</h2>
+<h1 id="enum-objecttype">Enum: ObjectType</h1>
+<p><em>An enum to provide the allowed values for the type of an Object.</em></p>
+<p>URI: <a href="./">ObjectType</a></p>
+<h2 id="permissible-values">Permissible Values</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cola</td>
+<td>FOODON:03301776</td>
+<td>SIREN DB annotation: * liquid, low viscosity, with no visible particles food ...</td>
+</tr>
+</tbody>
+</table>
+<h2 id="slots">Slots</h2>
 <table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Description</th>
-<th>Modifies Slot</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="../DatasetCollection/">DatasetCollection</a></td>
-<td>A holder for Dataset objects</td>
-<td>no</td>
+<td><a href="../type/">type</a></td>
+<td>The type of object according to the permissible values defined in the ObjectT...</td>
 </tr>
 </tbody>
 </table>
-<h2 id="properties">Properties</h2>
-<ul>
-<li>
-<p>Range: <a href="../Dataset/">Dataset</a></p>
-</li>
-<li>
-<p>Multivalued: True</p>
-</li>
-</ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
 <ul>
 <li>from schema: https://w3id.org/StroemPhi/dcat-NFDI-ap</li>
 </ul>
-<h2 id="mappings">Mappings</h2>
-<table>
-<thead>
-<tr>
-<th>Mapping Type</th>
-<th>Mapped Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>self</td>
-<td>dcat_nfdi_ap:entries</td>
-</tr>
-<tr>
-<td>native</td>
-<td>dcat_nfdi_ap:entries</td>
-</tr>
-</tbody>
-</table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: entries
+<pre><code class="language-yaml">name: ObjectType
+description: An enum to provide the allowed values for the type of an Object.
 from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
 rank: 1000
-alias: entries
-owner: DatasetCollection
-domain_of:
-- DatasetCollection
-range: Dataset
-multivalued: true
-inlined: true
+permissible_values:
+  cola:
+    text: cola
+    description: 'SIREN DB annotation: * liquid, low viscosity, with no visible particles
+      food (liquid, low viscosity, with no visible particles) * fully heat-treated
+      fully heat-treated * artificially carbonated artificial carbonation process
+      * acidified acidification process * ingredient: sugar or sugar syrup added obsolete:
+      sugar or sugar syrup added * ingredient: color added food color addition process
+      * ingredient: flavoring, spice or herb added flavoring, spice or herb'
+    meaning: FOODON:03301776
 
 </code></pre>
 

@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://StroemPhi.github.io/dcat-NFDI-ap/description/">
+        <link rel="canonical" href="https://StroemPhi.github.io/dcat-NFDI-ap/type/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-8.5.10">
     
     
       
-        <title>Slot: description - dcat-NFDI-ap</title>
+        <title>Slot: type - dcat-NFDI-ap</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-description" class="md-skip">
+        <a href="#slot-type" class="md-skip">
           Skip to content
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: description
+              Slot: type
             
           </span>
         </div>
@@ -317,15 +317,15 @@
                 
                   
 
-  <a href="https://github.com/StroemPhi/dcat-NFDI-ap/edit/master/docs/description.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/StroemPhi/dcat-NFDI-ap/edit/master/docs/type.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="slot-description">Slot: description</h1>
-<p><em>A free-text account of a thing.</em></p>
-<p>URI: <a href="http://purl.org/dc/terms/description">dct:description</a></p>
+<h1 id="slot-type">Slot: type</h1>
+<p><em>A property used to further specify the type of an entity in this schema.</em></p>
+<p>URI: <a href="http://purl.org/dc/terms/type">dct:type</a></p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -339,40 +339,25 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../NamedThing/">NamedThing</a></td>
-<td>A generic grouping for any identifiable entity</td>
-<td>no</td>
+<td><a href="../Activity/">Activity</a></td>
+<td>An activity is something that occurs over a period of time and acts upon or w...</td>
+<td>yes</td>
 </tr>
 <tr>
-<td><a href="../Dataset/">Dataset</a></td>
-<td>A collection of data, published or curated by a single agent, and available f...</td>
+<td><a href="../ObjectOfInterest/">ObjectOfInterest</a></td>
+<td>Something that is being observed, studied, modified, influenced or consumed w...</td>
 <td>yes</td>
 </tr>
 <tr>
 <td><a href="../Tool/">Tool</a></td>
 <td>Something with a certain function used within an activity to achieve the over...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../ObjectOfInterest/">ObjectOfInterest</a></td>
-<td>Something that is being observed, studied, modified, influenced or consumed w...</td>
-<td>no</td>
-</tr>
-<tr>
-<td><a href="../Catalog/">Catalog</a></td>
-<td>A curated collection of metadata about data resources</td>
 <td>yes</td>
 </tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
 <ul>
-<li>
-<p>Range: <a href="../String/">String</a></p>
-</li>
-<li>
-<p>Multivalued: True</p>
-</li>
+<li>Range: <a href="../String/">String</a></li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
 <h3 id="schema-source">Schema Source</h3>
@@ -390,27 +375,28 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>dct:description</td>
+<td>dct:type</td>
 </tr>
 <tr>
 <td>native</td>
-<td>dcat_nfdi_ap:description</td>
+<td>dcat_nfdi_ap:type</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 
-<pre><code class="language-yaml">name: description
-description: A free-text account of a thing.
+<pre><code class="language-yaml">name: type
+description: A property used to further specify the type of an entity in this schema.
 from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
 rank: 1000
-slot_uri: dct:description
-alias: description
+slot_uri: dct:type
+alias: type
 domain_of:
-- NamedThing
+- Activity
+- ObjectOfInterest
+- Tool
 range: string
-multivalued: true
 
 </code></pre>
 

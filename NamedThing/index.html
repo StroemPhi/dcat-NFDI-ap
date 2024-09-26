@@ -207,6 +207,10 @@
     click NamedThing href "../NamedThing"
       NamedThing &lt;|-- Dataset
         click Dataset href "../Dataset"
+      NamedThing &lt;|-- ObjectOfInterest
+        click ObjectOfInterest href "../ObjectOfInterest"
+      NamedThing &lt;|-- Tool
+        click Tool href "../Tool"
 
       NamedThing : description
 
@@ -220,6 +224,8 @@
 <ul>
 <li><strong>NamedThing</strong><ul>
 <li><a href="../Dataset/">Dataset</a></li>
+<li><a href="../ObjectOfInterest/">ObjectOfInterest</a></li>
+<li><a href="../Tool/">Tool</a></li>
 </ul>
 </li>
 </ul>
@@ -236,20 +242,20 @@
 <tbody>
 <tr>
 <td><a href="../id/">id</a></td>
-<td>1 <br/> <a href="../Uriorcurie/">Uriorcurie</a></td>
-<td>A unique identifier for a thing</td>
+<td>1 <br/> <a href="../String/">String</a></td>
+<td>The unique identifier of a thing</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../name/">name</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>A human-readable name for a thing</td>
+<td>* <br/> <a href="../String/">String</a></td>
+<td>The name of a thing</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../description/">description</a></td>
-<td>0..1 <br/> <a href="../String/">String</a></td>
-<td>A human-readable description for a thing</td>
+<td>* <br/> <a href="../String/">String</a></td>
+<td>A free-text account of a thing</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -276,6 +282,10 @@
 <td>native</td>
 <td>dcat_nfdi_ap:NamedThing</td>
 </tr>
+<tr>
+<td>exact</td>
+<td>owl:Thing</td>
+</tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
@@ -285,6 +295,8 @@
 <pre><code class="language-yaml">name: NamedThing
 description: A generic grouping for any identifiable entity
 from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
+exact_mappings:
+- owl:Thing
 slots:
 - id
 - name
@@ -298,41 +310,44 @@ class_uri: schema:Thing
 <pre><code class="language-yaml">name: NamedThing
 description: A generic grouping for any identifiable entity
 from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
+exact_mappings:
+- owl:Thing
 attributes:
   id:
     name: id
-    description: A unique identifier for a thing
+    description: The unique identifier of a thing.
     from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
     rank: 1000
-    slot_uri: schema:identifier
     identifier: true
     alias: id
     owner: NamedThing
     domain_of:
     - NamedThing
-    range: uriorcurie
+    range: string
   name:
     name: name
-    description: A human-readable name for a thing
+    description: The name of a thing.
     from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
     rank: 1000
-    slot_uri: schema:name
+    slot_uri: dct:title
     alias: name
     owner: NamedThing
     domain_of:
     - NamedThing
     range: string
+    multivalued: true
   description:
     name: description
-    description: A human-readable description for a thing
+    description: A free-text account of a thing.
     from_schema: https://w3id.org/StroemPhi/dcat-NFDI-ap
     rank: 1000
-    slot_uri: schema:description
+    slot_uri: dct:description
     alias: description
     owner: NamedThing
     domain_of:
     - NamedThing
     range: string
+    multivalued: true
 class_uri: schema:Thing
 
 </code></pre>
