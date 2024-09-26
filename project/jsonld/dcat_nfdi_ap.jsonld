@@ -3,13 +3,15 @@
   "description": "This is an extention of the DCAT Application Profile in LinkML. It is intended to be used by NFDI consortia as a core that can further be extended in profiles to provide domain specific metadata for a dataset.",
   "title": "dcat-NFDI-ap",
   "see_also": [
-    "https://StroemPhi.github.io/dcat-NFDI-ap"
+    "https://StroemPhi.github.io/dcat-NFDI-ap",
+    "https://github.com/HendrikBorgelt/DCAT-ap_as_LinkML_template/blob/main/src/dcatlinkml/schema/dcatlinkml.yaml",
+    "https://gitlab.com/opensourcelab/scientificdata/scidats/-/blob/feature/linkml-schemata/schemata/metadata_model_scidats_dcat_ap.yaml?ref_type=heads"
   ],
   "id": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
   "imports": [
     "linkml:types"
   ],
-  "license": "GNU GPL v3.0",
+  "license": "CC-BY 4.0",
   "prefixes": [
     {
       "prefix_prefix": "dcat_nfdi_ap",
@@ -28,8 +30,56 @@
       "prefix_reference": "http://schema.org/"
     },
     {
+      "prefix_prefix": "dct",
+      "prefix_reference": "http://purl.org/dc/terms/"
+    },
+    {
+      "prefix_prefix": "dcat",
+      "prefix_reference": "https://www.w3.org/ns/dcat#"
+    },
+    {
+      "prefix_prefix": "prov",
+      "prefix_reference": "http://www.w3.org/ns/prov#"
+    },
+    {
+      "prefix_prefix": "rdf",
+      "prefix_reference": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    {
+      "prefix_prefix": "rdfs",
+      "prefix_reference": "http://www.w3.org/2000/01/rdf-schema#"
+    },
+    {
+      "prefix_prefix": "owl",
+      "prefix_reference": "http://www.w3.org/2002/07/owl#"
+    },
+    {
       "prefix_prefix": "PATO",
       "prefix_reference": "http://purl.obolibrary.org/obo/PATO_"
+    },
+    {
+      "prefix_prefix": "OBI",
+      "prefix_reference": "http://purl.obolibrary.org/obo/OBI_"
+    },
+    {
+      "prefix_prefix": "CHEBI",
+      "prefix_reference": "http://purl.obolibrary.org/obo/CHEBI_"
+    },
+    {
+      "prefix_prefix": "CHMO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/CHMO_"
+    },
+    {
+      "prefix_prefix": "BFO",
+      "prefix_reference": "http://purl.obolibrary.org/obo/BFO_"
+    },
+    {
+      "prefix_prefix": "T4FS",
+      "prefix_reference": "http://purl.obolibrary.org/obo/T4FS_"
+    },
+    {
+      "prefix_prefix": "FOODON",
+      "prefix_reference": "http://purl.obolibrary.org/obo/FOODON_"
     },
     {
       "prefix_prefix": "example",
@@ -350,26 +400,46 @@
   ],
   "enums": [
     {
-      "name": "PersonStatus",
-      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/PersonStatus",
+      "name": "ActivityType",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/ActivityType",
+      "description": "An enum to provided allowed values for the type of an Activity.",
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
       "permissible_values": [
         {
-          "text": "ALIVE",
-          "description": "the person is living",
-          "meaning": "PATO:0001421"
+          "text": "data_curation",
+          "description": "A managed process, throughout the data lifecycle, by which data & data collections are cleansed, documented, standardized, formatted and inter-related. This includes versioning data, or forming a new collection from several data sources, annotating with metadata, adding codes to raw data (e.g., classifying a galaxy image with a galaxy type such as spiral).",
+          "meaning": "T4FS:0000132"
         },
         {
-          "text": "DEAD",
-          "description": "the person is deceased",
-          "meaning": "PATO:0001422"
-        },
+          "text": "spectroscopy",
+          "description": "The study of the interaction of a sample with radiation or particles for measurement or detection.",
+          "meaning": "CHMO:0000228"
+        }
+      ]
+    },
+    {
+      "name": "ObjectType",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/ObjectType",
+      "description": "An enum to provide the allowed values for the type of an Object.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "permissible_values": [
         {
-          "text": "UNKNOWN",
-          "description": "the vital status is not known",
-          "todos": [
-            "map this to an ontology"
-          ]
+          "text": "cola",
+          "description": "SIREN DB annotation: * liquid, low viscosity, with no visible particles food (liquid, low viscosity, with no visible particles) * fully heat-treated fully heat-treated * artificially carbonated artificial carbonation process * acidified acidification process * ingredient: sugar or sugar syrup added obsolete: sugar or sugar syrup added * ingredient: color added food color addition process * ingredient: flavoring, spice or herb added flavoring, spice or herb",
+          "meaning": "FOODON:03301776"
+        }
+      ]
+    },
+    {
+      "name": "ToolType",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/ToolType",
+      "description": "An enum to provide the allowed values for the type of a Tool.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "permissible_values": [
+        {
+          "text": "spectrometer",
+          "description": "A piece of apparatus used to measure a spectrum.",
+          "meaning": "CHMO:0001234"
         }
       ]
     }
@@ -378,145 +448,380 @@
     {
       "name": "id",
       "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/id",
-      "description": "A unique identifier for a thing",
+      "description": "The unique identifier of a thing.",
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
-      "mappings": [
-        "http://schema.org/identifier"
-      ],
-      "slot_uri": "http://schema.org/identifier",
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/id",
       "identifier": true,
       "owner": "NamedThing",
       "domain_of": [
         "NamedThing"
       ],
-      "range": "uriorcurie",
+      "range": "string",
       "required": true,
       "@type": "SlotDefinition"
     },
     {
       "name": "name",
       "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/name",
-      "description": "A human-readable name for a thing",
+      "description": "The name of a thing.",
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
       "mappings": [
-        "http://schema.org/name"
+        "http://purl.org/dc/terms/title"
       ],
-      "slot_uri": "http://schema.org/name",
+      "slot_uri": "http://purl.org/dc/terms/title",
       "owner": "NamedThing",
       "domain_of": [
         "NamedThing"
       ],
       "range": "string",
+      "multivalued": true,
       "@type": "SlotDefinition"
     },
     {
       "name": "description",
       "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/description",
-      "description": "A human-readable description for a thing",
+      "description": "A free-text account of a thing.",
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
       "mappings": [
-        "http://schema.org/description"
+        "http://purl.org/dc/terms/description"
       ],
-      "slot_uri": "http://schema.org/description",
+      "slot_uri": "http://purl.org/dc/terms/description",
       "owner": "NamedThing",
       "domain_of": [
         "NamedThing"
       ],
       "range": "string",
+      "multivalued": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "primary_email",
-      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/primary_email",
-      "description": "The main email address of a person",
+      "name": "type",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/type",
+      "description": "A property used to further specify the type of an entity in this schema.",
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
       "mappings": [
-        "http://schema.org/email"
+        "http://purl.org/dc/terms/type"
       ],
-      "slot_uri": "http://schema.org/email",
-      "owner": "Dataset",
+      "slot_uri": "http://purl.org/dc/terms/type",
+      "owner": "Tool",
       "domain_of": [
-        "Dataset"
+        "Activity",
+        "ObjectOfInterest",
+        "Tool"
       ],
       "range": "string",
       "@type": "SlotDefinition"
     },
     {
-      "name": "birth_date",
-      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/birth_date",
-      "description": "Date on which a person is born",
+      "name": "has_part",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/has_part",
+      "description": "A property used to specify parts of an entity in this schema.",
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
-      "mappings": [
-        "http://schema.org/birthDate"
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/has_part",
+      "owner": "Tool",
+      "domain_of": [
+        "Activity",
+        "Tool"
       ],
-      "slot_uri": "http://schema.org/birthDate",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "dataset__was_generated_by",
+      "description": "The property to specify the Activity (process) that created a Dataset.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/was_generated_by",
+      "alias": "was_generated_by",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
       ],
-      "range": "date",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "age_in_years",
-      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/age_in_years",
-      "description": "Number of years since birth",
-      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
-      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/age_in_years",
-      "owner": "Dataset",
-      "domain_of": [
-        "Dataset"
-      ],
-      "range": "integer",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "vital_status",
-      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/vital_status",
-      "description": "living or dead status",
-      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
-      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/vital_status",
-      "owner": "Dataset",
-      "domain_of": [
-        "Dataset"
-      ],
-      "range": "PersonStatus",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "datasetCollection__entries",
-      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
-      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/entries",
-      "alias": "entries",
-      "owner": "DatasetCollection",
-      "domain_of": [
-        "DatasetCollection"
-      ],
-      "range": "Dataset",
-      "multivalued": true,
+      "range": "Activity",
       "inlined": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "Dataset_primary_email",
-      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/primary_email",
-      "description": "The main email address of a person",
+      "name": "catalog__has_dataset",
+      "description": "The property to list the datasets of a catalog.",
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
       "mappings": [
-        "http://schema.org/email"
+        "https://www.w3.org/ns/dcat#dataset"
       ],
-      "is_a": "primary_email",
+      "slot_uri": "https://www.w3.org/ns/dcat#dataset",
+      "alias": "has_dataset",
+      "owner": "Catalog",
+      "domain_of": [
+        "Catalog"
+      ],
+      "range": "Dataset",
+      "recommended": true,
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "activity__had_object",
+      "description": "A property to provide the objects that are studied, processed or produced by an activity.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/had_object",
+      "alias": "had_object",
+      "owner": "Activity",
+      "domain_of": [
+        "Activity"
+      ],
+      "range": "ObjectOfInterest",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "activity__used_tool",
+      "description": "A property to provide the tools that were used in an activity.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/used_tool",
+      "alias": "used_tool",
+      "owner": "Activity",
+      "domain_of": [
+        "Activity"
+      ],
+      "range": "Tool",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Dataset_id",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/id",
+      "description": "The unique identifier of a Dataset.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "is_a": "id",
       "domain": "Dataset",
-      "slot_uri": "http://schema.org/email",
-      "alias": "primary_email",
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/id",
+      "identifier": true,
+      "alias": "id",
       "owner": "Dataset",
       "domain_of": [
         "Dataset"
       ],
       "is_usage_slot": true,
-      "usage_slot_name": "primary_email",
+      "usage_slot_name": "id",
       "range": "string",
-      "pattern": "^\\S+@[\\S+\\.]+\\S+",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Dataset_name",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/name",
+      "description": "The name of a dcat:Dataset.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "http://purl.org/dc/terms/title"
+      ],
+      "is_a": "name",
+      "domain": "Dataset",
+      "slot_uri": "http://purl.org/dc/terms/title",
+      "alias": "name",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "name",
+      "range": "string",
+      "required": true,
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Dataset_description",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/description",
+      "description": "A free-text account of a dcat:Dataset.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "http://purl.org/dc/terms/description"
+      ],
+      "is_a": "description",
+      "domain": "Dataset",
+      "slot_uri": "http://purl.org/dc/terms/description",
+      "alias": "description",
+      "owner": "Dataset",
+      "domain_of": [
+        "Dataset"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "description",
+      "range": "string",
+      "required": true,
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Catalog_id",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/id",
+      "description": "The unique identifier of a Catalog.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "is_a": "Dataset_id",
+      "domain": "Catalog",
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/id",
+      "identifier": true,
+      "alias": "id",
+      "owner": "Catalog",
+      "domain_of": [
+        "Catalog"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "id",
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Catalog_name",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/name",
+      "description": "The name of a dcat:Catalog.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "http://purl.org/dc/terms/title"
+      ],
+      "is_a": "Dataset_name",
+      "domain": "Catalog",
+      "slot_uri": "http://purl.org/dc/terms/title",
+      "alias": "name",
+      "owner": "Catalog",
+      "domain_of": [
+        "Catalog"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "name",
+      "range": "string",
+      "required": true,
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Catalog_description",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/description",
+      "description": "A free-text account of a dcat:Catalog.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "http://purl.org/dc/terms/description"
+      ],
+      "is_a": "Dataset_description",
+      "domain": "Catalog",
+      "slot_uri": "http://purl.org/dc/terms/description",
+      "alias": "description",
+      "owner": "Catalog",
+      "domain_of": [
+        "Catalog"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "description",
+      "range": "string",
+      "required": true,
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Activity_type",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/type",
+      "description": "The type of activity according to the permissible values defined in the ActivityType enum.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "http://purl.org/dc/terms/type"
+      ],
+      "is_a": "type",
+      "domain": "Activity",
+      "slot_uri": "http://purl.org/dc/terms/type",
+      "alias": "type",
+      "owner": "Activity",
+      "domain_of": [
+        "Activity"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "type",
+      "range": "ActivityType",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Activity_has_part",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/has_part",
+      "description": "An activity that is a part of an activity.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "is_a": "has_part",
+      "domain": "Activity",
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/has_part",
+      "alias": "has_part",
+      "owner": "Activity",
+      "domain_of": [
+        "Activity"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "has_part",
+      "range": "Activity",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ObjectOfInterest_type",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/type",
+      "description": "The type of object according to the permissible values defined in the ObjectType enum.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "http://purl.org/dc/terms/type"
+      ],
+      "is_a": "type",
+      "domain": "ObjectOfInterest",
+      "slot_uri": "http://purl.org/dc/terms/type",
+      "alias": "type",
+      "owner": "ObjectOfInterest",
+      "domain_of": [
+        "ObjectOfInterest"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "type",
+      "range": "ObjectType",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Tool_type",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/type",
+      "description": "The type of tool according to the permissible values defined in the ToolType enum.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "http://purl.org/dc/terms/type"
+      ],
+      "is_a": "type",
+      "domain": "Tool",
+      "slot_uri": "http://purl.org/dc/terms/type",
+      "alias": "type",
+      "owner": "Tool",
+      "domain_of": [
+        "Tool"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "type",
+      "range": "ToolType",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "Tool_has_part",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/has_part",
+      "description": "A tool that is a part of a tool.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "is_a": "has_part",
+      "domain": "Tool",
+      "slot_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/has_part",
+      "alias": "has_part",
+      "owner": "Tool",
+      "domain_of": [
+        "Tool"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "has_part",
+      "range": "Tool",
       "@type": "SlotDefinition"
     }
   ],
@@ -528,6 +833,9 @@
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
       "mappings": [
         "schema:Thing"
+      ],
+      "exact_mappings": [
+        "owl:Thing"
       ],
       "slots": [
         "id",
@@ -541,50 +849,154 @@
     {
       "name": "Dataset",
       "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/Dataset",
-      "description": "Represents a Dataset",
+      "description": "A collection of data, published or curated by a single agent, and available for access or download in one or more representations.",
+      "comments": [
+        "PS: wasn't discussed in the Halle Metadatathon"
+      ],
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "dcat:Dataset"
+      ],
+      "is_a": "NamedThing",
+      "slots": [
+        "dataset__was_generated_by",
+        "Dataset_id",
+        "Dataset_name",
+        "Dataset_description"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "was_generated_by",
+          "description": "The property to specify the Activity (process) that created a Dataset.",
+          "range": "Activity",
+          "inlined": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://www.w3.org/ns/dcat#Dataset",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Catalog",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/Catalog",
+      "description": "A curated collection of metadata about data resources.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "mappings": [
+        "dcat:Catalog"
+      ],
+      "is_a": "Dataset",
+      "slots": [
+        "dataset__was_generated_by",
+        "catalog__has_dataset",
+        "Catalog_id",
+        "Catalog_name",
+        "Catalog_description"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "has_dataset",
+          "description": "The property to list the datasets of a catalog.",
+          "slot_uri": "dcat:dataset",
+          "range": "Dataset",
+          "recommended": true,
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://www.w3.org/ns/dcat#Catalog",
+      "tree_root": true,
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Activity",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/Activity",
+      "description": "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "exact_mappings": [
+        "prov:Activity"
+      ],
+      "close_mappings": [
+        "OBI:0000011"
+      ],
+      "slots": [
+        "Activity_type",
+        "Activity_has_part",
+        "activity__had_object",
+        "activity__used_tool"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "had_object",
+          "description": "A property to provide the objects that are studied, processed or produced by an activity.",
+          "range": "ObjectOfInterest",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "used_tool",
+          "description": "A property to provide the tools that were used in an activity.",
+          "range": "Tool",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/Activity",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ObjectOfInterest",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/ObjectOfInterest",
+      "description": "Something that is being observed, studied, modified, influenced or consumed within an activity.",
+      "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "close_mappings": [
+        "prov:Entity"
+      ],
       "is_a": "NamedThing",
       "slots": [
         "id",
         "name",
         "description",
-        "Dataset_primary_email",
-        "birth_date",
-        "age_in_years",
-        "vital_status"
+        "ObjectOfInterest_type"
       ],
       "slot_usage": {},
-      "class_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/Dataset",
+      "class_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/ObjectOfInterest",
       "@type": "ClassDefinition"
     },
     {
-      "name": "DatasetCollection",
-      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/DatasetCollection",
-      "description": "A holder for Dataset objects",
+      "name": "Tool",
+      "definition_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/Tool",
+      "description": "Something with a certain function used within an activity to achieve the overall goal of the activity.",
       "from_schema": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
+      "close_mappings": [
+        "prov:Entity"
+      ],
+      "is_a": "NamedThing",
       "slots": [
-        "datasetCollection__entries"
+        "id",
+        "name",
+        "description",
+        "Tool_type",
+        "Tool_has_part"
       ],
       "slot_usage": {},
-      "attributes": [
-        {
-          "name": "entries",
-          "range": "Dataset",
-          "multivalued": true,
-          "inlined": true,
-          "@type": "SlotDefinition"
-        }
-      ],
-      "class_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/DatasetCollection",
-      "tree_root": true,
+      "class_uri": "https://w3id.org/StroemPhi/dcat-NFDI-ap/Tool",
       "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "dcat_nfdi_ap.yaml",
-  "source_file_date": "2024-09-26T09:28:28",
-  "source_file_size": 2376,
-  "generation_date": "2024-09-26T09:36:02",
+  "source_file_date": "2024-09-26T10:03:19",
+  "source_file_size": 7480,
+  "generation_date": "2024-09-26T10:03:23",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/dcat_nfdi_ap.context.jsonld",

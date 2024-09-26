@@ -1,24 +1,127 @@
-@prefix PATO: <http://purl.obolibrary.org/obo/PATO_> .
+@prefix CHMO: <http://purl.obolibrary.org/obo/CHMO_> .
+@prefix FOODON: <http://purl.obolibrary.org/obo/FOODON_> .
+@prefix OBI: <http://purl.obolibrary.org/obo/OBI_> .
+@prefix T4FS: <http://purl.obolibrary.org/obo/T4FS_> .
+@prefix dcat1: <https://www.w3.org/ns/dcat#> .
 @prefix dcat_nfdi_ap: <https://w3id.org/StroemPhi/dcat-NFDI-ap/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix linkml: <https://w3id.org/linkml/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema1: <http://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-dcat_nfdi_ap:DatasetCollection a owl:Class,
+dcat_nfdi_ap:Catalog a owl:Class,
         linkml:ClassDefinition ;
-    rdfs:label "DatasetCollection" ;
+    rdfs:label "Catalog" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty dcat_nfdi_ap:name ],
+        [ a owl:Restriction ;
             owl:allValuesFrom dcat_nfdi_ap:Dataset ;
-            owl:onProperty dcat_nfdi_ap:entries ],
+            owl:onProperty dcat_nfdi_ap:has_dataset ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty dcat_nfdi_ap:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:id ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty dcat_nfdi_ap:entries ] ;
-    skos:definition "A holder for Dataset objects" ;
+            owl:onProperty dcat_nfdi_ap:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty dcat_nfdi_ap:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:has_dataset ],
+        dcat_nfdi_ap:Dataset ;
+    skos:definition "A curated collection of metadata about data resources." ;
+    skos:exactMatch dcat1:Catalog ;
+    skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
+
+CHMO:0001234 a owl:Class,
+        dcat_nfdi_ap:ToolType ;
+    rdfs:label "spectrometer" ;
+    rdfs:subClassOf dcat_nfdi_ap:ToolType .
+
+FOODON:03301776 a owl:Class,
+        dcat_nfdi_ap:ObjectType ;
+    rdfs:label "cola" ;
+    rdfs:subClassOf dcat_nfdi_ap:ObjectType .
+
+dcat_nfdi_ap:ObjectOfInterest a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ObjectOfInterest" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom dcat_nfdi_ap:ObjectType ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        dcat_nfdi_ap:NamedThing ;
+    skos:closeMatch prov:Entity ;
+    skos:definition "Something that is being observed, studied, modified, influenced or consumed within an activity." ;
+    skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
+
+CHMO:0000228 a owl:Class,
+        dcat_nfdi_ap:ActivityType ;
+    rdfs:label "spectroscopy" ;
+    rdfs:subClassOf dcat_nfdi_ap:ActivityType .
+
+T4FS:0000132 a owl:Class,
+        dcat_nfdi_ap:ActivityType ;
+    rdfs:label "data_curation" ;
+    rdfs:subClassOf dcat_nfdi_ap:ActivityType .
+
+dcat_nfdi_ap:Activity a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "Activity" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:has_part ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom dcat_nfdi_ap:ObjectOfInterest ;
+            owl:onProperty dcat_nfdi_ap:had_object ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:has_part ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom dcat_nfdi_ap:ActivityType ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:used_tool ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom dcat_nfdi_ap:Tool ;
+            owl:onProperty dcat_nfdi_ap:used_tool ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom dcat_nfdi_ap:Activity ;
+            owl:onProperty dcat_nfdi_ap:has_part ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:had_object ] ;
+    skos:closeMatch OBI:0000011 ;
+    skos:definition "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities." ;
+    skos:exactMatch prov:Activity ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
 
 dcat_nfdi_ap:Dataset a owl:Class,
@@ -26,44 +129,82 @@ dcat_nfdi_ap:Dataset a owl:Class,
     rdfs:label "Dataset" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcat_nfdi_ap:birth_date ],
+            owl:onProperty dcat_nfdi_ap:was_generated_by ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty dcat_nfdi_ap:primary_email ],
+            owl:minCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:description ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty dcat_nfdi_ap:vital_status ],
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty dcat_nfdi_ap:description ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty dcat_nfdi_ap:age_in_years ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Date ;
-            owl:onProperty dcat_nfdi_ap:birth_date ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Integer ;
-            owl:onProperty dcat_nfdi_ap:age_in_years ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty dcat_nfdi_ap:age_in_years ],
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty dcat_nfdi_ap:id ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcat_nfdi_ap:primary_email ],
+            owl:onProperty dcat_nfdi_ap:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom dcat_nfdi_ap:Activity ;
+            owl:onProperty dcat_nfdi_ap:was_generated_by ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty dcat_nfdi_ap:name ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty dcat_nfdi_ap:vital_status ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty dcat_nfdi_ap:birth_date ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom [ a rdfs:Datatype ;
-                    owl:onDatatype xsd:string ;
-                    owl:withRestrictions ( [ xsd:pattern "^\\S+@[\\S+\\.]+\\S+" ] ) ] ;
-            owl:onProperty dcat_nfdi_ap:primary_email ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom dcat_nfdi_ap:PersonStatus ;
-            owl:onProperty dcat_nfdi_ap:vital_status ],
+            owl:onProperty dcat_nfdi_ap:was_generated_by ],
         dcat_nfdi_ap:NamedThing ;
-    skos:definition "Represents a Dataset" ;
+    skos:definition "A collection of data, published or curated by a single agent, and available for access or download in one or more representations." ;
+    skos:exactMatch dcat1:Dataset ;
+    skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> ;
+    skos:note "PS: wasn't discussed in the Halle Metadatathon" .
+
+dcat_nfdi_ap:Tool a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "Tool" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom dcat_nfdi_ap:ToolType ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:has_part ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcat_nfdi_ap:has_part ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom dcat_nfdi_ap:Tool ;
+            owl:onProperty dcat_nfdi_ap:has_part ],
+        dcat_nfdi_ap:NamedThing ;
+    skos:closeMatch prov:Entity ;
+    skos:definition "Something with a certain function used within an activity to achieve the overall goal of the activity." ;
+    skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
+
+dcat_nfdi_ap:had_object a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "had_object" ;
+    skos:definition "A property to provide the objects that are studied, processed or produced by an activity." ;
+    skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
+
+dcat_nfdi_ap:has_dataset a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "has_dataset" ;
+    skos:definition "The property to list the datasets of a catalog." ;
+    skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
+
+dcat_nfdi_ap:used_tool a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "used_tool" ;
+    skos:definition "A property to provide the tools that were used in an activity." ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
 
 dcat_nfdi_ap:NamedThing a owl:Class,
@@ -71,112 +212,86 @@ dcat_nfdi_ap:NamedThing a owl:Class,
     rdfs:label "NamedThing" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 0 ;
+            owl:onProperty dcat_nfdi_ap:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty dcat_nfdi_ap:name ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
-            owl:onProperty dcat_nfdi_ap:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty dcat_nfdi_ap:description ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty dcat_nfdi_ap:id ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty dcat_nfdi_ap:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty dcat_nfdi_ap:name ],
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty dcat_nfdi_ap:id ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty dcat_nfdi_ap:name ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcat_nfdi_ap:id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:Uriorcurie ;
             owl:onProperty dcat_nfdi_ap:id ] ;
     skos:definition "A generic grouping for any identifiable entity" ;
-    skos:exactMatch schema1:Thing ;
+    skos:exactMatch schema1:Thing,
+        owl:Thing ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
 
-PATO:0001421 a owl:Class,
-        dcat_nfdi_ap:PersonStatus ;
-    rdfs:label "ALIVE" ;
-    rdfs:subClassOf dcat_nfdi_ap:PersonStatus .
+dcat_nfdi_ap:ObjectType a owl:Class,
+        linkml:EnumDefinition ;
+    linkml:permissible_values FOODON:03301776 .
 
-PATO:0001422 a owl:Class,
-        dcat_nfdi_ap:PersonStatus ;
-    rdfs:label "DEAD" ;
-    rdfs:subClassOf dcat_nfdi_ap:PersonStatus .
+dcat_nfdi_ap:ToolType a owl:Class,
+        linkml:EnumDefinition ;
+    linkml:permissible_values CHMO:0001234 .
 
-<https://w3id.org/StroemPhi/dcat-NFDI-ap/PersonStatus#UNKNOWN> a owl:Class,
-        dcat_nfdi_ap:PersonStatus ;
-    rdfs:label "UNKNOWN" ;
-    rdfs:subClassOf dcat_nfdi_ap:PersonStatus .
-
-dcat_nfdi_ap:entries a owl:ObjectProperty,
+dcat_nfdi_ap:was_generated_by a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "entries" ;
+    rdfs:label "was_generated_by" ;
+    skos:definition "The property to specify the Activity (process) that created a Dataset." ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
 
-dcat_nfdi_ap:age_in_years a owl:ObjectProperty,
-        linkml:SlotDefinition ;
-    rdfs:label "age_in_years" ;
-    rdfs:range linkml:Integer ;
-    skos:definition "Number of years since birth" ;
-    skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
-
-dcat_nfdi_ap:birth_date a owl:ObjectProperty,
-        linkml:SlotDefinition ;
-    rdfs:label "birth_date" ;
-    rdfs:range linkml:Date ;
-    skos:definition "Date on which a person is born" ;
-    skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
+dcat_nfdi_ap:ActivityType a owl:Class,
+        linkml:EnumDefinition ;
+    owl:unionOf ( T4FS:0000132 CHMO:0000228 ) ;
+    linkml:permissible_values CHMO:0000228,
+        T4FS:0000132 .
 
 dcat_nfdi_ap:description a owl:ObjectProperty,
         linkml:SlotDefinition ;
     rdfs:label "description" ;
-    skos:definition "A human-readable description for a thing" ;
+    skos:definition "A free-text account of a thing." ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
 
-dcat_nfdi_ap:id a owl:ObjectProperty,
+dcat_nfdi_ap:has_part a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "id" ;
-    rdfs:range linkml:Uriorcurie ;
-    skos:definition "A unique identifier for a thing" ;
+    rdfs:label "has_part" ;
+    skos:definition "A property used to specify parts of an entity in this schema." ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
 
 dcat_nfdi_ap:name a owl:ObjectProperty,
         linkml:SlotDefinition ;
     rdfs:label "name" ;
-    skos:definition "A human-readable name for a thing" ;
+    skos:definition "The name of a thing." ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
 
-dcat_nfdi_ap:primary_email a owl:ObjectProperty,
+dcat_nfdi_ap:id a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "primary_email" ;
-    skos:definition "The main email address of a person" ;
+    rdfs:label "id" ;
+    skos:definition "The unique identifier of a thing." ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
 
-dcat_nfdi_ap:vital_status a owl:ObjectProperty,
+dcat_nfdi_ap:type a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "vital_status" ;
-    rdfs:range dcat_nfdi_ap:PersonStatus ;
-    skos:definition "living or dead status" ;
+    rdfs:label "type" ;
+    skos:definition "A property used to further specify the type of an entity in this schema." ;
     skos:inScheme <https://w3id.org/StroemPhi/dcat-NFDI-ap> .
-
-dcat_nfdi_ap:PersonStatus a owl:Class,
-        linkml:EnumDefinition ;
-    owl:unionOf ( PATO:0001421 PATO:0001422 <https://w3id.org/StroemPhi/dcat-NFDI-ap/PersonStatus#UNKNOWN> ) ;
-    linkml:permissible_values PATO:0001421,
-        PATO:0001422,
-        <https://w3id.org/StroemPhi/dcat-NFDI-ap/PersonStatus#UNKNOWN> .
 
 <https://w3id.org/StroemPhi/dcat-NFDI-ap> a owl:Ontology ;
     rdfs:label "dcat-NFDI-ap" ;
-    dcterms:license "GNU GPL v3.0" ;
-    dcterms:title "dcat-NFDI-ap" ;
-    rdfs:seeAlso <https://StroemPhi.github.io/dcat-NFDI-ap> ;
+    dct:license "CC-BY 4.0" ;
+    dct:title "dcat-NFDI-ap" ;
+    rdfs:seeAlso <https://StroemPhi.github.io/dcat-NFDI-ap>,
+        <https://github.com/HendrikBorgelt/DCAT-ap_as_LinkML_template/blob/main/src/dcatlinkml/schema/dcatlinkml.yaml>,
+        <https://gitlab.com/opensourcelab/scientificdata/scidats/-/blob/feature/linkml-schemata/schemata/metadata_model_scidats_dcat_ap.yaml?ref_type=heads> ;
     skos:definition "This is an extention of the DCAT Application Profile in LinkML. It is intended to be used by NFDI consortia as a core that can further be extended in profiles to provide domain specific metadata for a dataset." .
 

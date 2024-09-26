@@ -4,6 +4,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
 PREFIX schema1: <http://schema.org/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcat1: <https://www.w3.org/ns/dcat#>
 
 
 linkml:String xsd:string
@@ -44,32 +46,67 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
-<Dataset> CLOSED {
-    (  $<Dataset_tes> (  &<NamedThing_tes> ;
-          rdf:type [ schema1:Thing ] ? ;
-          schema1:email @linkml:String ? ;
-          schema1:birthDate @linkml:Date ? ;
-          <age_in_years> @linkml:Integer ? ;
-          <vital_status> [ <http://purl.obolibrary.org/obo/PATO_0001421> <http://purl.obolibrary.org/obo/PATO_0001422>
-             <https://w3id.org/StroemPhi/dcat-NFDI-ap/PersonStatus#UNKNOWN> ] ?
+<Activity> CLOSED {
+    (  $<Activity_tes> (  dct:type [ <http://purl.obolibrary.org/obo/T4FS_0000132> <http://purl.obolibrary.org/obo/CHMO_0000228> ]
+          ? ;
+          <has_part> @<Activity> ? ;
+          <had_object> @<ObjectOfInterest> * ;
+          <used_tool> @<Tool> *
        ) ;
-       rdf:type [ <Dataset> ]
+       rdf:type [ <Activity> ] ?
     )
 }
 
-<DatasetCollection> CLOSED {
-    (  $<DatasetCollection_tes> <entries> @<Dataset> * ;
-       rdf:type [ <DatasetCollection> ] ?
+<Catalog> CLOSED {
+    (  $<Catalog_tes> (  &<Dataset_tes> ;
+          rdf:type [ dcat1:Dataset ] ? ;
+          dcat1:dataset @<Dataset> * ;
+          dct:title @linkml:String + ;
+          dct:description @linkml:String +
+       ) ;
+       rdf:type [ dcat1:Catalog ]
     )
 }
+
+<Dataset>  (
+    CLOSED {
+       (  $<Dataset_tes> (  &<NamedThing_tes> ;
+             rdf:type [ schema1:Thing ] ? ;
+             <was_generated_by> @<Activity> ? ;
+             dct:title @linkml:String + ;
+             dct:description @linkml:String +
+          ) ;
+          rdf:type [ dcat1:Dataset ]
+       )
+    } OR @<Catalog>
+)
 
 <NamedThing>  (
     CLOSED {
-       (  $<NamedThing_tes> (  schema1:name @linkml:String ? ;
-             schema1:description @linkml:String ?
+       (  $<NamedThing_tes> (  dct:title @linkml:String * ;
+             dct:description @linkml:String *
           ) ;
           rdf:type [ schema1:Thing ]
        )
-    } OR @<Dataset>
+    } OR @<Dataset> OR @<ObjectOfInterest> OR @<Tool>
 )
+
+<ObjectOfInterest> CLOSED {
+    (  $<ObjectOfInterest_tes> (  &<NamedThing_tes> ;
+          rdf:type [ schema1:Thing ] ? ;
+          dct:type [ <http://purl.obolibrary.org/obo/FOODON_03301776> ] ?
+       ) ;
+       rdf:type [ <ObjectOfInterest> ]
+    )
+}
+
+<Tool> CLOSED {
+    (  $<Tool_tes> (  &<NamedThing_tes> ;
+          rdf:type [ schema1:Thing ] ? ;
+          dct:type [ <http://purl.obolibrary.org/obo/CHMO_0001234> ] ? ;
+          <has_part> @<Tool> ?
+       ) ;
+       rdf:type [ <Tool> ]
+    )
+}
 

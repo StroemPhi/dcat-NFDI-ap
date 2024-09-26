@@ -4,16 +4,31 @@ name: dcat-NFDI-ap
 title: dcat-NFDI-ap
 description: |-
   This is an extention of the DCAT Application Profile in LinkML. It is intended to be used by NFDI consortia as a core that can further be extended in profiles to provide domain specific metadata for a dataset.
-license: GNU GPL v3.0
+license: CC-BY 4.0
 see_also:
   - https://StroemPhi.github.io/dcat-NFDI-ap
+  - https://github.com/HendrikBorgelt/DCAT-ap_as_LinkML_template/blob/main/src/dcatlinkml/schema/dcatlinkml.yaml
+  - https://gitlab.com/opensourcelab/scientificdata/scidats/-/blob/feature/linkml-schemata/schemata/metadata_model_scidats_dcat_ap.yaml?ref_type=heads
+
 
 prefixes:
   dcat_nfdi_ap: https://w3id.org/StroemPhi/dcat-NFDI-ap/
   linkml: https://w3id.org/linkml/
   biolink: https://w3id.org/biolink/
   schema: http://schema.org/
+  dct: http://purl.org/dc/terms/
+  dcat: https://www.w3.org/ns/dcat#
+  prov: http://www.w3.org/ns/prov#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  owl: http://www.w3.org/2002/07/owl#
   PATO: http://purl.obolibrary.org/obo/PATO_
+  OBI: http://purl.obolibrary.org/obo/OBI_
+  CHEBI: http://purl.obolibrary.org/obo/CHEBI_
+  CHMO: http://purl.obolibrary.org/obo/CHMO_
+  BFO: http://purl.obolibrary.org/obo/BFO_
+  T4FS: http://purl.obolibrary.org/obo/T4FS_
+  FOODON: http://purl.obolibrary.org/obo/FOODON_
   example: https://example.org/
 default_prefix: dcat_nfdi_ap
 default_range: string
@@ -31,66 +46,166 @@ classes:
       - name
       - description
     class_uri: schema:Thing
-
+    exact_mappings:
+      - owl:Thing
+  # Information
   Dataset:
+    class_uri: dcat:Dataset
     is_a: NamedThing
     description: >-
-      Represents a Dataset
-    slots:
-      - primary_email
-      - birth_date
-      - age_in_years
-      - vital_status
-    slot_usage:
-      primary_email:
-        pattern: "^\\S+@[\\S+\\.]+\\S+"
-
-  DatasetCollection:
-    tree_root: true
-    description: >-
-      A holder for Dataset objects
+      A collection of data, published or curated by a single agent, and available for access or download in one or more representations.
     attributes:
-      entries:
+      # <<recommended>>
+      was_generated_by:
+        description: The property to specify the Activity (process) that created a Dataset.
+        range: Activity
+        inlined: true
+    slot_usage:
+      id:
+        description: The unique identifier of a Dataset.
+      name:
+        description: The name of a dcat:Dataset.
+        required: true
+      description:
+        description: A free-text account of a dcat:Dataset.
+        required: true
+    comments:
+      - "PS: wasn't discussed in the Halle Metadatathon"
+
+  Catalog:
+    tree_root: true
+    class_uri: dcat:Catalog
+    is_a: Dataset
+    description: A curated collection of metadata about data resources.
+    attributes:
+      has_dataset:
+        slot_uri: dcat:dataset
+        description: The property to list the datasets of a catalog.
         range: Dataset
         multivalued: true
         inlined: true
+        inlined_as_list: true
+        recommended: true
+    slot_usage:
+      id:
+        description: The unique identifier of a Catalog.
+      # <<required>> according to DCAT-AP specs
+      name:
+        description: The name of a dcat:Catalog.
+      description:
+        description: A free-text account of a dcat:Catalog.
+        
+  # Processes
+  Activity:
+    description: An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.
+    attributes:
+      had_object:
+        description: A property to provide the objects that are studied, processed or produced by an activity.
+        #required: true
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+        range: ObjectOfInterest
+      used_tool:
+        description: A property to provide the tools that were used in an activity.
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+        range: Tool
+    slots:
+      - type
+      - has_part
+    slot_usage:
+      type:
+        description: The type of activity according to the permissible values defined in the ActivityType enum.
+        range: ActivityType
+      has_part:
+        description: An activity that is a part of an activity.
+        range: Activity
+    exact_mappings:
+      - prov:Activity
+    close_mappings:
+      - OBI:0000011
+  # Objects
+  ObjectOfInterest:
+    is_a: NamedThing
+    description: Something that is being observed, studied, modified, influenced or consumed within an activity.
+    slots:
+      - type
+    slot_usage:
+      type:
+        description: The type of object according to the permissible values defined in the ObjectType enum.
+        range: ObjectType
+    close_mappings:
+      - prov:Entity
+  
+  Tool:
+    is_a: NamedThing
+    description: Something with a certain function used within an activity to achieve the overall goal of the activity.
+    slots:
+      - type
+      - has_part
+    slot_usage:
+      type:
+        description: The type of tool according to the permissible values defined in the ToolType enum.
+        range: ToolType
+      has_part:
+        description: A tool that is a part of a tool.
+        range: Tool
+    close_mappings:
+      - prov:Entity
 
+# Slots
 slots:
+  
   id:
     identifier: true
-    slot_uri: schema:identifier
-    range: uriorcurie
-    description: A unique identifier for a thing
+    description: The unique identifier of a thing.
+  
   name:
-    slot_uri: schema:name
-    description: A human-readable name for a thing
+    slot_uri: dct:title
+    multivalued: true
+    description: The name of a thing.
+  
   description:
-    slot_uri: schema:description
-    description: A human-readable description for a thing
-  primary_email:
-    slot_uri: schema:email
-    description: The main email address of a person
-  birth_date:
-    slot_uri: schema:birthDate
-    range: date
-    description: Date on which a person is born
-  age_in_years:
-    range: integer
-    description: Number of years since birth
-  vital_status:
-    range: PersonStatus
-    description: living or dead status
+    slot_uri: dct:description
+    description: A free-text account of a thing.
+    multivalued: true
+  
+  type:
+    # if you want to assert an entity using this slot to be an instance of a certain class you need to change the 
+    # slot_uri to 'rdf:type'
+    slot_uri: dct:type
+    description: A property used to further specify the type of an entity in this schema.
+  
+  has_part:
+    description: A property used to specify parts of an entity in this schema.
 
+# Enums
 enums:
-  PersonStatus:
+  
+  ActivityType:
+    description: An enum to provided allowed values for the type of an Activity.
     permissible_values:
-      ALIVE:
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        description: the vital status is not known
-        todos:
-          - map this to an ontology
+      data_curation:
+        description: >-
+          A managed process, throughout the data lifecycle, by which data & data collections are cleansed, documented, standardized, formatted and inter-related. This includes versioning data, or forming a new collection from several data sources, annotating with metadata, adding codes to raw data (e.g., classifying a galaxy image with a galaxy type such as spiral).
+        meaning: T4FS:0000132
+      spectroscopy:
+        description: The study of the interaction of a sample with radiation or particles for measurement or detection.
+        meaning: CHMO:0000228
+  
+  ObjectType:
+    description: An enum to provide the allowed values for the type of an Object.
+    permissible_values:
+      cola:
+        description: "SIREN DB annotation: * liquid, low viscosity, with no visible particles food (liquid, low viscosity, with no visible particles) * fully heat-treated fully heat-treated * artificially carbonated artificial carbonation process * acidified acidification process * ingredient: sugar or sugar syrup added obsolete: sugar or sugar syrup added * ingredient: color added food color addition process * ingredient: flavoring, spice or herb added flavoring, spice or herb"
+        meaning: FOODON:03301776
+  
+  ToolType:
+    description: An enum to provide the allowed values for the type of a Tool.
+    permissible_values:
+      spectrometer:
+        description: A piece of apparatus used to measure a spectrum.
+        meaning: CHMO:0001234
+    

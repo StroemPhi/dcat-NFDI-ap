@@ -1,26 +1,52 @@
  syntax="proto3";
  package
 // metamodel_version: 1.7.0
-// Represents a Dataset
+// An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.
+message Activity
+ {
+  activityType type = 0
+  activity hasPart = 0
+ repeated  objectOfInterest hadObject = 0
+ repeated  tool usedTool = 0
+ }
+// A curated collection of metadata about data resources.
+message Catalog
+ {
+  activity wasGeneratedBy = 0
+ repeated  dataset hasDataset = 0
+  string id = 0
+ repeated  string name = 0
+ repeated  string description = 0
+ }
+// A collection of data, published or curated by a single agent, and available for access or download in one or more representations.
 message Dataset
  {
-  uriorcurie id = 0
-  string name = 0
-  string description = 0
-  string primaryEmail = 0
-  date birthDate = 0
-  integer ageInYears = 0
-  personStatus vitalStatus = 0
- }
-// A holder for Dataset objects
-message DatasetCollection
- {
- repeated  dataset entries = 0
+  activity wasGeneratedBy = 0
+  string id = 0
+ repeated  string name = 0
+ repeated  string description = 0
  }
 // A generic grouping for any identifiable entity
 message NamedThing
  {
-  uriorcurie id = 0
-  string name = 0
-  string description = 0
+  string id = 0
+ repeated  string name = 0
+ repeated  string description = 0
+ }
+// Something that is being observed, studied, modified, influenced or consumed within an activity.
+message ObjectOfInterest
+ {
+  string id = 0
+ repeated  string name = 0
+ repeated  string description = 0
+  objectType type = 0
+ }
+// Something with a certain function used within an activity to achieve the overall goal of the activity.
+message Tool
+ {
+  string id = 0
+ repeated  string name = 0
+ repeated  string description = 0
+  toolType type = 0
+  tool hasPart = 0
  }

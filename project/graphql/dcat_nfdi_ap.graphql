@@ -1,24 +1,50 @@
 # metamodel_version: 1.7.0
-type Dataset
+type Activity
   {
-    id: Uriorcurie!
-    name: String
-    description: String
-    primaryEmail: String
-    birthDate: Date
-    ageInYears: Integer
-    vitalStatus: PersonStatus
+    type: ActivityType
+    hasPart: Activity
+    hadObject: [ObjectOfInterest]
+    usedTool: [Tool]
   }
 
-type DatasetCollection
+type Catalog
   {
-    entries: [Dataset]
+    wasGeneratedBy: Activity
+    hasDataset: [Dataset]
+    id: String!
+    name: [String]!
+    description: [String]!
+  }
+
+type Dataset
+  {
+    wasGeneratedBy: Activity
+    id: String!
+    name: [String]!
+    description: [String]!
   }
 
 type NamedThing
   {
-    id: Uriorcurie!
-    name: String
-    description: String
+    id: String!
+    name: [String]
+    description: [String]
+  }
+
+type ObjectOfInterest
+  {
+    id: String!
+    name: [String]
+    description: [String]
+    type: ObjectType
+  }
+
+type Tool
+  {
+    id: String!
+    name: [String]
+    description: [String]
+    type: ToolType
+    hasPart: Tool
   }
 

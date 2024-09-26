@@ -1,92 +1,194 @@
-@prefix PATO: <http://purl.obolibrary.org/obo/PATO_> .
+@prefix CHMO: <http://purl.obolibrary.org/obo/CHMO_> .
+@prefix FOODON: <http://purl.obolibrary.org/obo/FOODON_> .
+@prefix T4FS: <http://purl.obolibrary.org/obo/T4FS_> .
+@prefix dcat1: <https://www.w3.org/ns/dcat#> .
 @prefix dcat_nfdi_ap: <https://w3id.org/StroemPhi/dcat-NFDI-ap/> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema1: <http://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-dcat_nfdi_ap:DatasetCollection a sh:NodeShape ;
+dcat1:Catalog a sh:NodeShape ;
+    rdfs:subClassOf dcat1:Dataset ;
     sh:closed true ;
-    sh:description "A holder for Dataset objects" ;
+    sh:description "A curated collection of metadata about data resources." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class dcat_nfdi_ap:Dataset ;
+    sh:property [ sh:class dcat_nfdi_ap:Activity ;
+            sh:description "The property to specify the Activity (process) that created a Dataset." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path dcat_nfdi_ap:was_generated_by ],
+        [ sh:datatype xsd:string ;
+            sh:description "The name of a dcat:Catalog." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dct:title ],
+        [ sh:class dcat1:Dataset ;
+            sh:description "The property to list the datasets of a catalog." ;
             sh:nodeKind sh:IRI ;
             sh:order 0 ;
-            sh:path dcat_nfdi_ap:entries ] ;
-    sh:targetClass dcat_nfdi_ap:DatasetCollection .
+            sh:path dcat1:dataset ],
+        [ sh:datatype xsd:string ;
+            sh:description "A free-text account of a dcat:Catalog." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dct:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The unique identifier of a Catalog." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dcat_nfdi_ap:id ] ;
+    sh:targetClass dcat1:Catalog .
+
+dcat_nfdi_ap:ObjectOfInterest a sh:NodeShape ;
+    rdfs:subClassOf schema1:Thing ;
+    sh:closed true ;
+    sh:description "Something that is being observed, studied, modified, influenced or consumed within an activity." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The name of a thing." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dct:title ],
+        [ sh:datatype xsd:string ;
+            sh:description "A free-text account of a thing." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dct:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The unique identifier of a thing." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dcat_nfdi_ap:id ],
+        [ sh:description "The type of object according to the permissible values defined in the ObjectType enum." ;
+            sh:in ( FOODON:03301776 ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path dct:type ] ;
+    sh:targetClass dcat_nfdi_ap:ObjectOfInterest .
+
+dcat_nfdi_ap:Tool a sh:NodeShape ;
+    rdfs:subClassOf schema1:Thing ;
+    sh:closed true ;
+    sh:description "Something with a certain function used within an activity to achieve the overall goal of the activity." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The unique identifier of a thing." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dcat_nfdi_ap:id ],
+        [ sh:datatype xsd:string ;
+            sh:description "A free-text account of a thing." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dct:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The name of a thing." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dct:title ],
+        [ sh:class dcat_nfdi_ap:Tool ;
+            sh:description "A tool that is a part of a tool." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path dcat_nfdi_ap:has_part ],
+        [ sh:description "The type of tool according to the permissible values defined in the ToolType enum." ;
+            sh:in ( CHMO:0001234 ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path dct:type ] ;
+    sh:targetClass dcat_nfdi_ap:Tool .
+
+dcat1:Dataset a sh:NodeShape ;
+    rdfs:subClassOf schema1:Thing ;
+    sh:closed true ;
+    sh:description "A collection of data, published or curated by a single agent, and available for access or download in one or more representations." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The name of a dcat:Dataset." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dct:title ],
+        [ sh:datatype xsd:string ;
+            sh:description "A free-text account of a dcat:Dataset." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dct:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The unique identifier of a Dataset." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dcat_nfdi_ap:id ],
+        [ sh:class dcat_nfdi_ap:Activity ;
+            sh:description "The property to specify the Activity (process) that created a Dataset." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path dcat_nfdi_ap:was_generated_by ] ;
+    sh:targetClass dcat1:Dataset .
 
 schema1:Thing a sh:NodeShape ;
     sh:closed true ;
     sh:description "A generic grouping for any identifiable entity" ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "A human-readable name for a thing" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path schema1:name ],
-        [ sh:datatype xsd:string ;
-            sh:description "A human-readable description for a thing" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path schema1:description ],
-        [ sh:datatype xsd:anyURI ;
-            sh:description "A unique identifier for a thing" ;
+            sh:description "The unique identifier of a thing." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path schema1:identifier ] ;
+            sh:path dcat_nfdi_ap:id ],
+        [ sh:datatype xsd:string ;
+            sh:description "A free-text account of a thing." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dct:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The name of a thing." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dct:title ] ;
     sh:targetClass schema1:Thing .
 
-dcat_nfdi_ap:Dataset a sh:NodeShape ;
-    rdfs:subClassOf schema1:Thing ;
+dcat_nfdi_ap:Activity a sh:NodeShape ;
     sh:closed true ;
-    sh:description "Represents a Dataset" ;
+    sh:description "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:anyURI ;
-            sh:description "A unique identifier for a thing" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 4 ;
-            sh:path schema1:identifier ],
-        [ sh:datatype xsd:string ;
-            sh:description "A human-readable description for a thing" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 6 ;
-            sh:path schema1:description ],
-        [ sh:datatype xsd:string ;
-            sh:description "A human-readable name for a thing" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 5 ;
-            sh:path schema1:name ],
-        [ sh:datatype xsd:date ;
-            sh:description "Date on which a person is born" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path schema1:birthDate ],
-        [ sh:datatype xsd:integer ;
-            sh:description "Number of years since birth" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path dcat_nfdi_ap:age_in_years ],
-        [ sh:datatype xsd:string ;
-            sh:description "The main email address of a person" ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path schema1:email ;
-            sh:pattern "^\\S+@[\\S+\\.]+\\S+" ],
-        [ sh:description "living or dead status" ;
-            sh:in ( PATO:0001421 PATO:0001422 "UNKNOWN" ) ;
-            sh:maxCount 1 ;
+    sh:property [ sh:class dcat_nfdi_ap:Tool ;
+            sh:description "A property to provide the tools that were used in an activity." ;
+            sh:nodeKind sh:IRI ;
             sh:order 3 ;
-            sh:path dcat_nfdi_ap:vital_status ] ;
-    sh:targetClass dcat_nfdi_ap:Dataset .
+            sh:path dcat_nfdi_ap:used_tool ],
+        [ sh:class dcat_nfdi_ap:Activity ;
+            sh:description "An activity that is a part of an activity." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path dcat_nfdi_ap:has_part ],
+        [ sh:class dcat_nfdi_ap:ObjectOfInterest ;
+            sh:description "A property to provide the objects that are studied, processed or produced by an activity." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path dcat_nfdi_ap:had_object ],
+        [ sh:description "The type of activity according to the permissible values defined in the ActivityType enum." ;
+            sh:in ( T4FS:0000132 CHMO:0000228 ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path dct:type ] ;
+    sh:targetClass dcat_nfdi_ap:Activity .
 

@@ -1,136 +1,148 @@
 {
     "$defs": {
-        "Dataset": {
+        "Activity": {
             "additionalProperties": false,
-            "description": "Represents a Dataset",
+            "description": "An activity is something that occurs over a period of time and acts upon or with entities; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.",
             "properties": {
-                "age_in_years": {
-                    "description": "Number of years since birth",
+                "had_object": {
+                    "description": "A property to provide the objects that are studied, processed or produced by an activity.",
+                    "items": {
+                        "$ref": "#/$defs/ObjectOfInterest"
+                    },
                     "type": [
-                        "integer",
+                        "array",
                         "null"
                     ]
                 },
-                "birth_date": {
-                    "description": "Date on which a person is born",
-                    "format": "date",
+                "has_part": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "An activity that is a part of an activity."
+                },
+                "type": {
+                    "$ref": "#/$defs/ActivityType",
+                    "description": "The type of activity according to the permissible values defined in the ActivityType enum."
+                },
+                "used_tool": {
+                    "description": "A property to provide the tools that were used in an activity.",
+                    "items": {
+                        "$ref": "#/$defs/Tool"
+                    },
                     "type": [
-                        "string",
+                        "array",
                         "null"
                     ]
-                },
+                }
+            },
+            "title": "Activity",
+            "type": "object"
+        },
+        "ActivityType": {
+            "description": "An enum to provided allowed values for the type of an Activity.",
+            "enum": [
+                "data_curation",
+                "spectroscopy"
+            ],
+            "title": "ActivityType",
+            "type": "string"
+        },
+        "Catalog": {
+            "additionalProperties": false,
+            "description": "A curated collection of metadata about data resources.",
+            "properties": {
                 "description": {
-                    "description": "A human-readable description for a thing",
+                    "description": "A free-text account of a dcat:Catalog.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "has_dataset": {
+                    "description": "The property to list the datasets of a catalog.",
+                    "items": {
+                        "$ref": "#/$defs/Dataset"
+                    },
                     "type": [
-                        "string",
+                        "array",
                         "null"
                     ]
                 },
                 "id": {
-                    "description": "A unique identifier for a thing",
+                    "description": "The unique identifier of a Catalog.",
                     "type": "string"
                 },
                 "name": {
-                    "description": "A human-readable name for a thing",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "description": "The name of a dcat:Catalog.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
                 },
-                "primary_email": {
-                    "description": "The main email address of a person",
-                    "pattern": "^\\S+@[\\S+\\.]+\\S+",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "vital_status": {
-                    "$ref": "#/$defs/PersonStatus",
-                    "description": "living or dead status"
+                "was_generated_by": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The property to specify the Activity (process) that created a Dataset."
                 }
             },
             "required": [
-                "id"
+                "id",
+                "name",
+                "description"
             ],
-            "title": "Dataset",
+            "title": "Catalog",
             "type": "object"
         },
-        "DatasetCollection": {
+        "Dataset": {
             "additionalProperties": false,
-            "description": "A holder for Dataset objects",
+            "description": "A collection of data, published or curated by a single agent, and available for access or download in one or more representations.",
             "properties": {
-                "entries": {
-                    "additionalProperties": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/$defs/Dataset__identifier_optional"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
-                    },
-                    "type": [
-                        "object",
-                        "null"
-                    ]
-                }
-            },
-            "title": "DatasetCollection",
-            "type": "object"
-        },
-        "Dataset__identifier_optional": {
-            "additionalProperties": false,
-            "description": "Represents a Dataset",
-            "properties": {
-                "age_in_years": {
-                    "description": "Number of years since birth",
-                    "type": [
-                        "integer",
-                        "null"
-                    ]
-                },
-                "birth_date": {
-                    "description": "Date on which a person is born",
-                    "format": "date",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "description": {
-                    "description": "A human-readable description for a thing",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "description": "A free-text account of a dcat:Dataset.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
                 },
                 "id": {
-                    "description": "A unique identifier for a thing",
+                    "description": "The unique identifier of a Dataset.",
                     "type": "string"
                 },
                 "name": {
-                    "description": "A human-readable name for a thing",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "description": "The name of a dcat:Dataset.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
                 },
-                "primary_email": {
-                    "description": "The main email address of a person",
-                    "pattern": "^\\S+@[\\S+\\.]+\\S+",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "vital_status": {
-                    "$ref": "#/$defs/PersonStatus",
-                    "description": "living or dead status"
+                "was_generated_by": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Activity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The property to specify the Activity (process) that created a Dataset."
                 }
             },
-            "required": [],
+            "required": [
+                "id",
+                "name",
+                "description"
+            ],
             "title": "Dataset",
             "type": "object"
         },
@@ -139,23 +151,29 @@
             "description": "A generic grouping for any identifiable entity",
             "properties": {
                 "description": {
-                    "description": "A human-readable description for a thing",
+                    "description": "A free-text account of a thing.",
+                    "items": {
+                        "type": "string"
+                    },
                     "type": [
-                        "string",
+                        "array",
                         "null"
                     ]
                 },
                 "id": {
-                    "description": "A unique identifier for a thing",
+                    "description": "The unique identifier of a thing.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "name": {
-                    "description": "A human-readable name for a thing",
+                    "description": "The name of a thing.",
+                    "items": {
+                        "type": "string"
+                    },
                     "type": [
-                        "string",
+                        "array",
                         "null"
                     ]
                 }
@@ -166,40 +184,159 @@
             "title": "NamedThing",
             "type": "object"
         },
-        "PersonStatus": {
-            "description": "",
-            "enum": [
-                "ALIVE",
-                "DEAD",
-                "UNKNOWN"
+        "ObjectOfInterest": {
+            "additionalProperties": false,
+            "description": "Something that is being observed, studied, modified, influenced or consumed within an activity.",
+            "properties": {
+                "description": {
+                    "description": "A free-text account of a thing.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "The unique identifier of a thing.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of a thing.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "$ref": "#/$defs/ObjectType",
+                    "description": "The type of object according to the permissible values defined in the ObjectType enum."
+                }
+            },
+            "required": [
+                "id"
             ],
-            "title": "PersonStatus",
+            "title": "ObjectOfInterest",
+            "type": "object"
+        },
+        "ObjectType": {
+            "description": "An enum to provide the allowed values for the type of an Object.",
+            "enum": [
+                "cola"
+            ],
+            "title": "ObjectType",
+            "type": "string"
+        },
+        "Tool": {
+            "additionalProperties": false,
+            "description": "Something with a certain function used within an activity to achieve the overall goal of the activity.",
+            "properties": {
+                "description": {
+                    "description": "A free-text account of a thing.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "has_part": {
+                    "description": "A tool that is a part of a tool.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "The unique identifier of a thing.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name of a thing.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "$ref": "#/$defs/ToolType",
+                    "description": "The type of tool according to the permissible values defined in the ToolType enum."
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Tool",
+            "type": "object"
+        },
+        "ToolType": {
+            "description": "An enum to provide the allowed values for the type of a Tool.",
+            "enum": [
+                "spectrometer"
+            ],
+            "title": "ToolType",
             "type": "string"
         }
     },
     "$id": "https://w3id.org/StroemPhi/dcat-NFDI-ap",
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": true,
-    "description": "A holder for Dataset objects",
+    "description": "A curated collection of metadata about data resources.",
     "metamodel_version": "1.7.0",
     "properties": {
-        "entries": {
-            "additionalProperties": {
-                "anyOf": [
-                    {
-                        "$ref": "#/$defs/Dataset__identifier_optional"
-                    },
-                    {
-                        "type": "null"
-                    }
-                ]
+        "description": {
+            "description": "A free-text account of a dcat:Catalog.",
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "has_dataset": {
+            "description": "The property to list the datasets of a catalog.",
+            "items": {
+                "$ref": "#/$defs/Dataset"
             },
             "type": [
-                "object",
+                "array",
                 "null"
             ]
+        },
+        "id": {
+            "description": "The unique identifier of a Catalog.",
+            "type": "string"
+        },
+        "name": {
+            "description": "The name of a dcat:Catalog.",
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "was_generated_by": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/Activity"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "description": "The property to specify the Activity (process) that created a Dataset."
         }
     },
+    "required": [
+        "id",
+        "name",
+        "description"
+    ],
     "title": "dcat-NFDI-ap",
     "type": "object",
     "version": null
