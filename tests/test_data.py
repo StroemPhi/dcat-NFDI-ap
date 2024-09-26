@@ -4,7 +4,7 @@ import glob
 import unittest
 
 from linkml_runtime.loaders import yaml_loader
-from dcat_nfdi_ap.datamodel.dcat_nfdi_ap import DatasetCollection
+from src.dcat_nfdi_ap.datamodel.dcat_nfdi_ap import DatasetCollection
 
 ROOT = os.path.join(os.path.dirname(__file__), '..')
 DATA_DIR = os.path.join(ROOT, "src", "data", "examples")
