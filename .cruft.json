@@ -1,0 +1,27 @@
+{
+  "template": "https://github.com/linkml/linkml-project-cookiecutter",
+  "commit": "b2da87eb7835bfec748a76823d098cac85e8363a",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "dcat-NFDI-ap",
+      "__project_slug": "dcat_nfdi_ap",
+      "github_org": "StroemPhi",
+      "__source_path": "src/dcat_nfdi_ap/schema/dcat_nfdi_ap.yaml",
+      "project_description": "This is an extention of the DCAT Application Profile in LinkML. It is intended to be used by NFDI consortia as a core that can further be extended in profiles to provide domain specific metadata for a dataset.",
+      "full_name": "Philip Strömert",
+      "email": "philip.stroemert@tib.eu",
+      "__author": "Philip Strömert <philip.stroemert@tib.eu>",
+      "license": "GNU GPL v3.0",
+      "main_schema_class": "Dataset",
+      "create_python_classes": "Yes",
+      "use_schemasheets": "No",
+      "google_sheet_id": "1l7ax6swihgQZJM-vWeI9rZN6kwOB2J6xNgrWKTk40Cc",
+      "google_sheet_tabs": "personinfo enums",
+      "__google_sheet_module": "personinfo_enums",
+      "github_token_for_pypi_deployment": "PYPI_PASSWORD",
+      "_template": "https://github.com/linkml/linkml-project-cookiecutter"
+    }
+  },
+  "directory": null
+}
